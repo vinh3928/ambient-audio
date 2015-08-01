@@ -37,8 +37,8 @@ router.post('/tessel', function(req, res, next) {
       }
       var data = JSON.parse(req.body);
 
-      var value_sound = data.sound;
-      var value_light = data.light;
+      var value_sound = 10;
+      var value_light = 15;
       console.log("I'm updating stream values! (Press CTRL + C to stop)");
 
       var at = new Date().toISOString();
