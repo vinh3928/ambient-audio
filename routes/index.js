@@ -30,31 +30,31 @@ router.get('/tessel', function(req, res, next) {
 });
 
 router.post('/tessel', function(req, res, next) {
-  m2xClient.devices.updateStreams("4690ce92affcda9190579d380675dc6d", streams, function(response) {
-      if (response.isError()) {
-          console.log("Cannot create stream:", response);
-          return;
-      }
-      var data = JSON.parse(req.body);
+  //m2xClient.devices.updateStreams("4690ce92affcda9190579d380675dc6d", streams, function(response) {
+      //if (response.isError()) {
+          //console.log("Cannot create stream:", response);
+          //return;
+      //}
+      //var data = JSON.parse(req.body);
 
-      var value_sound = data.sound;
-      var value_light = data.light;
-      console.log("I'm updating stream values! (Press CTRL + C to stop)");
+      //var value_sound = data.sound;
+      //var value_light = data.light;
+      //console.log("I'm updating stream values! (Press CTRL + C to stop)");
 
-      var at = new Date().toISOString();
-      var values = {
-          temperature:  [ { value: value_sound, timestamp: at } ],
-          moisture:  [ { value: value_light, timestamp: at } ],
-      };
+      //var at = new Date().toISOString();
+      //var values = {
+          //temperature:  [ { value: value_sound, timestamp: at } ],
+          //moisture:  [ { value: value_light, timestamp: at } ],
+      //};
 
-      // Write the different values into AT&T M2X
-      m2xClient.devices.postMultiple(config.device, values, function(result) {
-          if (result.isError()) {
-              clearInterval(handleLoop);
-              console.log(result.error());
-          }
-      });
-  });
+      //// Write the different values into AT&T M2X
+      //m2xClient.devices.postMultiple(config.device, values, function(result) {
+          //if (result.isError()) {
+              //clearInterval(handleLoop);
+              //console.log(result.error());
+          //}
+      //});
+  //});
 
   res.send("post works");
 
