@@ -14,13 +14,16 @@ ambient.on('ready', function () {
       if (err) throw err;
       ambient.getSoundLevel( function(err, sdata) {
         if (err) throw err;
+  console.log("lightdata", ldata);
+  console.log("sounddata", sdata);
 // http call
   var postData = querystring.stringify({
-    'msg' : 'Hello World!'
+    'light' : ldata,
+    'sound' : sdata
   });
 
   var options = {
-    hostname: 'localhost:3000',
+    hostname: 'salty-mesa-5708.herokuapp.com',
     port: 80,
     path: '/tessel',
     method: 'POST',
@@ -50,5 +53,5 @@ ambient.on('ready', function () {
 //
       });
     });
-  }, 500); // The readings will happen every .5 seconds unless the trigger is hit
+  }, 2000); // The readings will happen every .5 seconds unless the trigger is hit
 });
