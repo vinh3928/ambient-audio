@@ -20,9 +20,9 @@ ambient.on('ready', function () {
   });
 
   var options = {
-    hostname: 'www.google.com',
+    hostname: 'localhost:3000',
     port: 80,
-    path: '/upload',
+    path: '/tessel',
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',

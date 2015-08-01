@@ -11,7 +11,6 @@ router.get('/tessel', function(req, res, next) {
 });
 
 router.post('/tessel', function(req, res, next) {
-  res.write("post works");
-
+  res.send("post works");
 });
 module.exports = router;
