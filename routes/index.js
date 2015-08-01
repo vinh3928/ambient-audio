@@ -30,7 +30,7 @@ router.get('/tessel', function(req, res, next) {
 });
 
 router.post('/tessel', function(req, res, next) {
-  m2xClient.devices.updateStreams(config.device, streams, function(response) {
+  m2xClient.devices.updateStreams("4690ce92affcda9190579d380675dc6d", streams, function(response) {
       if (response.isError()) {
           console.log("Cannot create stream:", response);
           return;
