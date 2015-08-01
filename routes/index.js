@@ -5,14 +5,14 @@ var m2xClient = new M2X("ef4642f74095db38bb8e4fe0598cbd07");
 var streams = {
     "sound": {
         "unit": {
-            "label": "sound",
+            "label": "decible",
             "symbol": "%" 
         },  
         "type": "numeric"
     },  
     "light": {
         "unit": {
-            "label": "light",
+            "label": "rays",
             "symbol": "%" 
         },  
         "type": "numeric"
@@ -25,6 +25,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/test', function(req, res, next) {
+  res.render('post', { title: 'Express' });
+});
+
 router.get('/tessel', function(req, res, next) {
   res.end("hello");
 });
@@ -35,28 +39,45 @@ router.post('/tessel', function(req, res, next) {
           console.log("Cannot create stream:", response);
           return;
       }
-      var data = JSON.parse(req.body);
 
-      var value_sound = 10;
-      var value_light = 15;
-      console.log("I'm updating stream values! (Press CTRL + C to stop)");
+      //var value_sound = 10;
+      //var value_light = 15;
+      //console.log("I'm updating stream values! (Press CTRL + C to stop)");
+      //var at = new Date().toISOString();
+      //var values = {
+          //sound:  [ { value: value_sound, timestamp: at } ],
+          //light:  [ { value: value_light, timestamp: at } ],
+      //};
 
-      var at = new Date().toISOString();
-      var values = {
-          temperature:  [ { value: value_sound, timestamp: at } ],
-          moisture:  [ { value: value_light, timestamp: at } ],
-      };
+      //// Write the different values into AT&T M2X
+      //m2xClient.devices.postMultiple("4690ce92affcda9190579d380675dc6d", values, function(result) {
+          //if (result.isError()) {
+              //clearInterval(handleLoop);
+              //console.log(result.error());
+          //}
+      //});
+  //});
 
-      // Write the different values into AT&T M2X
-      m2xClient.devices.postMultiple(config.device, values, function(result) {
-          if (result.isError()) {
-              clearInterval(handleLoop);
-              console.log(result.error());
-          }
-      });
+    var value_sound = +req.body.sound;
+    var value_light = +req.body.light;
+    var handleLoop;
+        console.log("I'm updating stream values! (Press CTRL + C to stop)");
+
+        var at = new Date().toISOString();
+        var values = {
+            sound:  [ { value: value_sound, timestamp: at } ],
+            light:  [ { value: value_light, timestamp: at } ],
+        };
+
+        // Write the different values into AT&T M2X
+        m2xClient.devices.postMultiple("4690ce92affcda9190579d380675dc6d", values, function(result) {
+            if (result.isError()) {
+                clearInterval(handleLoop);
+                console.log(result.error());
+            }
+        });
+
+    res.send("success!");
   });
-
-  res.send("success!");
-
 });
 module.exports = router;
