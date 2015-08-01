@@ -56,7 +56,7 @@ router.post('/tessel', function(req, res, next) {
       //});
   //});
 
-  res.send("post works");
+  res.send(req.body);
 
 });
 module.exports = router;
